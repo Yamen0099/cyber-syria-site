@@ -1,83 +1,71 @@
-// Design philosophy: Signal / Shield — neo-futurist information design, asymmetric command-surface layout, Signal Cyan accents, restrained motion.
-import { useEffect, useState } from "react";
-import { ArrowUpRight, ChevronDown, Instagram, Mail, Menu, ShieldCheck, Sparkles, X } from "lucide-react";
+// Design philosophy: Signal / Shield — official cinematic cyber-safety experience with tactile lock-to-shield interaction, layered depth, and clear operational content.
+import { useEffect, useRef, useState } from "react";
+import { ArrowDown, ArrowRight, Check, Instagram, Mail, Menu, Phone, Shield, ShieldCheck, Sparkles, X, Zap } from "lucide-react";
 
-const signals = [
-  { label: "ACCOUNT SECURITY", value: "94%", detail: "baseline protected", tone: "lime" },
-  { label: "THREAT AWARENESS", value: "LIVE", detail: "signal feed active", tone: "cyan" },
-  { label: "NEXT BRIEF", value: "01:42", detail: "minutes to clarity", tone: "red" },
-];
-
-const briefings = [
-  { number: "01", title: "Spot the trap", text: "The safest click is the one you understand first.", tag: "PHISHING" },
-  { number: "02", title: "Lock the door", text: "A strong password is a habit, not a one-time fix.", tag: "ACCESS" },
-  { number: "03", title: "Keep your signal", text: "Privacy is the space between you and the noise.", tag: "PRIVACY" },
-];
+const identityImage = "/manus-storage/cyber-syria-identity_4dcfe87c.png";
+const benefits = ["Threat awareness", "Account protection", "Digital resilience"];
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSignal, setActiveSignal] = useState(0);
-  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const [unlock, setUnlock] = useState(0);
+  const [activeTab, setActiveTab] = useState("Protection");
+  const dragStart = useRef<number | null>(null);
+  const lockPercent = Math.min(100, Math.max(0, unlock));
+
+  const onPointerDown = (event: React.PointerEvent<HTMLDivElement>) => {
+    dragStart.current = event.clientX;
+    event.currentTarget.setPointerCapture(event.pointerId);
+  };
+  const onPointerMove = (event: React.PointerEvent<HTMLDivElement>) => {
+    if (dragStart.current === null) return;
+    setUnlock(Math.min(100, Math.max(0, ((event.clientX - dragStart.current) / 220) * 100 + unlock)));
+    dragStart.current = event.clientX;
+  };
+  const onPointerUp = () => { dragStart.current = null; };
 
   useEffect(() => {
-    const onMove = (event: MouseEvent) => setCursor({ x: event.clientX, y: event.clientY });
-    window.addEventListener("mousemove", onMove);
-    const timer = window.setInterval(() => setActiveSignal((value) => (value + 1) % signals.length), 4200);
-    return () => { window.removeEventListener("mousemove", onMove); window.clearInterval(timer); };
+    const onKey = (event: KeyboardEvent) => { if (event.key === "ArrowRight") setUnlock((value) => Math.min(100, value + 12)); if (event.key === "ArrowLeft") setUnlock((value) => Math.max(0, value - 12)); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
   }, []);
 
   return (
-    <main className="site-shell" style={{ "--cursor-x": `${cursor.x}px`, "--cursor-y": `${cursor.y}px` } as React.CSSProperties}>
-      <div className="cursor-glow" aria-hidden="true" />
-      <div className="noise" aria-hidden="true" />
-      <header className="nav-wrap">
-        <a className="brand" href="#top" aria-label="Cyber Syria home">
-          <span className="brand-mark"><ShieldCheck size={22} strokeWidth={1.7} /></span>
-          <span><b>CYBER</b><em>SYRIA</em></span>
-        </a>
-        <button className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} aria-label="Toggle navigation">{menuOpen ? <X size={21} /> : <Menu size={21} />}</button>
-        <nav className={menuOpen ? "nav-links open" : "nav-links"}>
-          <a href="#signal" onClick={() => setMenuOpen(false)}>Signal</a>
-          <a href="#briefings" onClick={() => setMenuOpen(false)}>Briefings</a>
-          <a href="#mission" onClick={() => setMenuOpen(false)}>Mission</a>
-          <a className="nav-cta" href="mailto:syriacyber.syria@gmail.com" onClick={() => setMenuOpen(false)}>Connect <ArrowUpRight size={14} /></a>
+    <main className="official-site">
+      <div className="site-grain" />
+      <header className="official-nav">
+        <a href="#top" className="official-brand"><span className="brand-image"><img src={identityImage} alt="Cyber Syria identity" /></span><span><b>CYBER SYRIA</b><small>DIGITAL DEFENSE UNIT</small></span></a>
+        <nav className={menuOpen ? "official-links open" : "official-links"}>
+          <a href="#experience" onClick={() => setMenuOpen(false)}>Experience</a><a href="#protection" onClick={() => setMenuOpen(false)}>Protection</a><a href="#briefings" onClick={() => setMenuOpen(false)}>Briefings</a><a href="#contact" onClick={() => setMenuOpen(false)}>Contact</a>
         </nav>
+        <a href="#contact" className="nav-pill">Talk to us <ArrowRight size={15} /></a>
+        <button className="nav-menu" onClick={() => setMenuOpen((value) => !value)} aria-label="Open navigation">{menuOpen ? <X /> : <Menu />}</button>
       </header>
 
-      <section id="top" className="hero-section">
-        <div className="hero-copy reveal reveal-one">
-          <p className="eyebrow"><span className="pulse-dot" /> SYRIA / DIGITAL DEFENSE UNIT 01</p>
-          <h1>Stay one<br /><span>signal</span> ahead.</h1>
-          <p className="hero-text">Practical cybersecurity awareness for the people, teams, and stories shaping Syria's digital tomorrow.</p>
-          <div className="hero-actions">
-            <a className="primary-btn" href="#briefings">Explore the signal <ArrowUpRight size={17} /></a>
-            <a className="text-link" href="https://www.instagram.com/syria_cyber/" target="_blank" rel="noreferrer"><Instagram size={15} /> @syria_cyber</a>
+      <section id="top" className="cinematic-hero">
+        <div className="hero-grid-lines" />
+        <div className="hero-wordmark"><span>SYRIA</span><i>/</i><span>CYBER</span></div>
+        <div className="hero-statement"><p className="kicker"><span className="live-dot" /> YOUR DIGITAL WORLD, PROTECTED</p><h1>Move with<br /><em>confidence.</em></h1><p className="hero-intro">A new standard for digital safety. Clear signals, practical protection, and a stronger tomorrow.</p><a href="#experience" className="hero-button">Enter the experience <ArrowDown size={17} /></a></div>
+        <div className="hero-visual" id="experience" style={{ "--shield-opacity": lockPercent > 55 ? .85 : 0, "--shield-scale": lockPercent > 55 ? .25 : 0 } as React.CSSProperties}>
+          <div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" /><div className="visual-orbit orbit-three" />
+          <div className={lockPercent > 55 ? "lock-object unlocked" : "lock-object"} style={{ "--shift": `${lockPercent * 1.25}px` } as React.CSSProperties} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} role="slider" aria-label="Drag the lock to unlock your shield" aria-valuenow={lockPercent} tabIndex={0}>
+            <div className="lock-body"><div className="lock-hole" /><div className="lock-keyhole" /><div className="lock-shine" /></div><div className="lock-shackle" />
           </div>
-          <div className="micro-meta"><span>LAT 33.5138° N</span><span>LONG 36.2765° E</span><span>STATUS: WATCHFUL</span></div>
+          <div className="shield-object"><Shield size={124} strokeWidth={.65} /><div className="shield-inner">PROTECTED<br /><span>CYBER SYRIA</span></div></div>
+          <div className="drag-track"><span>DRAG TO UNLOCK</span><i style={{ width: `${Math.max(18, lockPercent)}%` }} /><b style={{ left: `${Math.min(92, Math.max(5, lockPercent))}%` }}><ArrowRight size={17} /></b></div>
+          <div className="visual-label label-top"><small>SECURE NODE</small><strong>001 / ONLINE</strong></div><div className="visual-label label-bottom"><small>PROTOCOL</small><strong>{lockPercent > 55 ? "SHIELD ACTIVE" : "LOCKED / READY"}</strong></div>
         </div>
-        <div className="orbital-stage reveal reveal-two" id="signal">
-          <div className="orbit orbit-a" /><div className="orbit orbit-b" /><div className="orbit orbit-c" />
-          <div className="orbit-node node-a" /><div className="orbit-node node-b" /><div className="orbit-node node-c" />
-          <div className="shield-core"><div className="core-grid" /><ShieldCheck size={76} strokeWidth={1} /><span>SECURE<br />THE SIGNAL</span></div>
-          <div className="telemetry telemetry-top"><span>NODE_001</span><b>ACTIVE</b></div>
-          <div className="telemetry telemetry-bottom"><span>ENCRYPTION</span><b>AES / 256</b></div>
-          <div className="scan-line" />
-        </div>
+        <div className="scroll-mark"><ArrowDown size={15} /> SCROLL TO EXPLORE</div>
       </section>
 
-      <section className="signal-strip" aria-label="Live account signals">
-        {signals.map((signal, index) => <button key={signal.label} className={activeSignal === index ? "signal-card active" : "signal-card"} onClick={() => setActiveSignal(index)}><span className={`signal-icon ${signal.tone}`} /> <span><small>{signal.label}</small><strong>{signal.value}</strong><em>{signal.detail}</em></span></button>)}
-      </section>
+      <section className="statement-band"><p className="kicker">A SIGNAL WORTH FOLLOWING</p><h2>Security should feel<br /><span>powerful, not complicated.</span></h2><div className="band-line" /></section>
 
-      <section id="briefings" className="briefings-section">
-        <div className="section-heading"><p className="eyebrow">FIELD NOTES / 03</p><h2>Small signals.<br /><i>Big difference.</i></h2><p className="section-lede">No jargon. No panic. Just the habits that make your digital life harder to break.</p></div>
-        <div className="briefing-list">{briefings.map((briefing) => <article className="briefing-card" key={briefing.number}><div className="briefing-index">{briefing.number}</div><div className="briefing-main"><div className="briefing-tag">{briefing.tag}</div><h3>{briefing.title}</h3><p>{briefing.text}</p><a href="https://www.instagram.com/syria_cyber/" target="_blank" rel="noreferrer" aria-label={`Read ${briefing.title}`}>Read the briefing <ArrowUpRight size={16} /></a></div><div className="briefing-status"><span className="status-bar" /> SIGNAL / CLEAR</div></article>)}</div>
-      </section>
+      <section id="protection" className="protection-section"><div className="section-marker">01 / PROTECTION SYSTEM</div><div className="protection-copy"><p className="kicker">DESIGNED FOR REAL LIFE</p><h2>One clear<br /><span>layer at a time.</span></h2><p className="body-copy">We translate the complexity of cybersecurity into actions you can understand, remember, and use. Because feeling safe online starts with seeing the signal clearly.</p><div className="benefit-list">{benefits.map((benefit, index) => <div className="benefit" key={benefit}><span>0{index + 1}</span><b>{benefit}</b><Check size={16} /></div>)}</div></div><div className="protection-card"><div className="card-glow" /><div className="card-top"><span>CYBER SYRIA / CORE</span><span>ACTIVE</span></div><div className="mini-shield"><ShieldCheck size={55} /></div><div className="card-readout"><span>SECURITY LEVEL</span><strong>MAXIMUM AWARENESS</strong><i><b /></i></div><div className="card-footer">33.5138° N / 36.2765° E <Sparkles size={14} /></div></div></section>
 
-      <section id="mission" className="mission-section"><div className="mission-line" /><div><p className="eyebrow">WHY CYBER SYRIA</p><h2>See the risk.<br /><span>Lock the door.</span></h2></div><div className="mission-copy"><p>Digital safety should feel clear, local, and possible. Cyber Syria turns complex threats into useful signals you can act on today.</p><a className="outline-btn" href="mailto:syriacyber.syria@gmail.com"><Mail size={16} /> Start a conversation</a></div></section>
+      <section id="briefings" className="briefing-section"><div className="section-marker">02 / THE BRIEFING ROOM</div><div className="briefing-head"><p className="kicker">SIGNALS FOR EVERYDAY LIFE</p><h2>Know the move<br /><span>before the threat.</span></h2></div><div className="briefing-tabs">{["Protection", "Awareness", "Resilience"].map((tab) => <button key={tab} onClick={() => setActiveTab(tab)} className={activeTab === tab ? "active" : ""}>{tab}</button>)}</div><div className="briefing-panel"><div className="panel-number">01</div><div><p className="kicker">{activeTab.toUpperCase()} / FIELD NOTE</p><h3>Make the invisible<br />impossible to ignore.</h3><p className="body-copy">Your strongest defense is a small habit repeated consistently. Start with the signal in front of you.</p><a href="https://www.instagram.com/syria_cyber/" target="_blank" rel="noreferrer">Read on Instagram <Instagram size={15} /></a></div><div className="panel-ring"><Zap size={34} /><span>LIVE<br />SIGNAL</span></div></div></section>
 
-      <footer className="footer"><div className="footer-brand"><span className="brand-mark"><ShieldCheck size={18} /></span><span>CYBER SYRIA</span></div><span>© 2026 / DIGITAL SAFETY MATTERS</span><a href="https://www.instagram.com/syria_cyber/" target="_blank" rel="noreferrer">Instagram <ArrowUpRight size={14} /></a></footer>
-      <div className="scroll-cue"><ChevronDown size={16} /> SCROLL TO DECODE</div>
+      <section id="contact" className="contact-section"><div className="contact-visual"><img src={identityImage} alt="Cyber Syria official identity" /><div className="contact-orbit" /></div><div className="contact-copy"><p className="kicker">03 / DIRECT LINE</p><h2>Let’s make<br /><span>the signal stronger.</span></h2><p className="body-copy">For collaborations, awareness campaigns, or digital safety conversations, connect directly with Cyber Syria.</p><div className="contact-links"><a href="tel:+971544472016"><span><Phone size={18} /></span><b>+971 54 447 2016</b><ArrowRight size={16} /></a><a href="mailto:yamanjswma526@gmail.com"><span><Mail size={18} /></span><b>yamanjswma526@gmail.com</b><ArrowRight size={16} /></a><a href="https://www.instagram.com/syria_cyber/" target="_blank" rel="noreferrer"><span><Instagram size={18} /></span><b>@syria_cyber</b><ArrowRight size={16} /></a></div></div></section>
+
+      <footer className="official-footer"><a href="#top" className="official-brand"><span className="brand-image"><img src={identityImage} alt="" /></span><span><b>CYBER SYRIA</b><small>DIGITAL DEFENSE UNIT</small></span></a><span>© 2026 CYBER SYRIA / DIGITAL SAFETY MATTERS</span><a href="#top">BACK TO TOP ↑</a></footer>
     </main>
   );
 }
