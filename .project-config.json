@@ -1,0 +1,34 @@
+{
+  "build_command": "pnpm run build",
+  "capabilities": [],
+  "dev_command": "pnpm run dev",
+  "env_vars": {},
+  "experiments": null,
+  "git_remote": {
+    "repo_url": "https://7f0548f6b28a1758d9bf7be630d36cb4.artifacts.cloudflare.net/git/prod/UtojNQ94mZASHTmNFUSKnv.git",
+    "expiration": "2026-08-14T06:14:21.724Z",
+    "token": "art_v2_x_e02d1c0c5e07913ef049cd1a70f03c4e419a7afd?expires=1786688061",
+    "backend": "GIT_BACKEND_ARTIFACTS"
+  },
+  "name": "cyber-syria-site",
+  "path": "/home/ubuntu/cyber-syria-site",
+  "port": 3000,
+  "secrets": {
+    "BUILT_IN_FORGE_API_KEY": "k4M949DmWcsyRVmT7J3FYL",
+    "BUILT_IN_FORGE_API_URL": "https://forge.manus.ai",
+    "JWT_SECRET": "7qQuDHDKpfcW86doHFXg5a",
+    "OAUTH_SERVER_URL": "https://api.manus.im",
+    "OWNER_NAME": "YAMEN AL JAMIUS",
+    "OWNER_OPEN_ID": "ndrR2ahBFXYzMsH5cxvpMb",
+    "VITE_ANALYTICS_ENDPOINT": "https://manus-analytics.com",
+    "VITE_ANALYTICS_WEBSITE_ID": "500d29af-797e-4837-bc1c-ad0d2f1f90ca",
+    "VITE_APP_ID": "UtojNQ94mZASHTmNFUSKnv",
+    "VITE_APP_LOGO": "",
+    "VITE_APP_TITLE": "Cyber Syria — Digital Defense",
+    "VITE_FRONTEND_FORGE_API_KEY": "CTg8TYTdKhKQq65qKMz2Bo",
+    "VITE_FRONTEND_FORGE_API_URL": "https://forge.manus.ai",
+    "VITE_OAUTH_PORTAL_URL": "https://manus.im"
+  },
+  "template_id": "web-static",
+  "test_command": "pnpm test"
+}
