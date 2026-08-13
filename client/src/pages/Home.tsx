@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { ArrowDown, ArrowRight, Check, Instagram, Mail, Menu, Phone, Shield, ShieldCheck, Sparkles, X, Zap } from "lucide-react";
 
 const identityImage = "/manus-storage/cyber-syria-identity_4dcfe87c.png";
+const eagleImage = "/manus-storage/cyber-syria-eagle-clean_c7ffd756.png";
 const benefits = ["Threat awareness", "Account protection", "Digital resilience"];
 
 export default function Home() {
@@ -45,14 +46,11 @@ export default function Home() {
         <div className="hero-grid-lines" />
         <div className="hero-wordmark"><span>SYRIA</span><i>/</i><span>CYBER</span></div>
         <div className="hero-statement"><p className="kicker"><span className="live-dot" /> YOUR DIGITAL WORLD, PROTECTED</p><h1>Move with<br /><em>confidence.</em></h1><p className="hero-intro">A new standard for digital safety. Clear signals, practical protection, and a stronger tomorrow.</p><a href="#experience" className="hero-button">Enter the experience <ArrowDown size={17} /></a></div>
-        <div className="hero-visual" id="experience" style={{ "--shield-opacity": lockPercent > 55 ? .85 : 0, "--shield-scale": lockPercent > 55 ? .25 : 0 } as React.CSSProperties}>
+        <div className="hero-visual" id="experience">
           <div className="visual-orbit orbit-one" /><div className="visual-orbit orbit-two" /><div className="visual-orbit orbit-three" />
-          <div className={lockPercent > 55 ? "lock-object unlocked" : "lock-object"} style={{ "--shift": `${lockPercent * 1.25}px` } as React.CSSProperties} onPointerDown={onPointerDown} onPointerMove={onPointerMove} onPointerUp={onPointerUp} role="slider" aria-label="Drag the lock to unlock your shield" aria-valuenow={lockPercent} tabIndex={0}>
-            <div className="lock-body"><div className="lock-hole" /><div className="lock-keyhole" /><div className="lock-shine" /></div><div className="lock-shackle" />
-          </div>
-          <div className="shield-object"><Shield size={124} strokeWidth={.65} /><div className="shield-inner">PROTECTED<br /><span>CYBER SYRIA</span></div></div>
-          <div className="drag-track"><span>DRAG TO UNLOCK</span><i style={{ width: `${Math.max(18, lockPercent)}%` }} /><b style={{ left: `${Math.min(92, Math.max(5, lockPercent))}%` }}><ArrowRight size={17} /></b></div>
-          <div className="visual-label label-top"><small>SECURE NODE</small><strong>001 / ONLINE</strong></div><div className="visual-label label-bottom"><small>PROTOCOL</small><strong>{lockPercent > 55 ? "SHIELD ACTIVE" : "LOCKED / READY"}</strong></div>
+          <div className="identity-hero-mark"><img src={eagleImage} alt="Syrian visual identity eagle" /><span>SYRIAN VISUAL IDENTITY<br /><b>OFFICIAL SIGNAL / ACTIVE</b></span></div>
+          <div className="identity-seal-status"><span>SYRIA / 2026</span><b>VISUAL IDENTITY ONLINE</b></div>
+          <div className="visual-label label-top"><small>IDENTITY NODE</small><strong>001 / ONLINE</strong></div><div className="visual-label label-bottom"><small>PROTOCOL</small><strong>VISUAL IDENTITY ACTIVE</strong></div>
         </div>
         <div className="scroll-mark"><ArrowDown size={15} /> SCROLL TO EXPLORE</div>
       </section>
